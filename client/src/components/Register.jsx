@@ -14,6 +14,8 @@ const Register = () => {
         password,
       });
       alert('registration completed for username: ' + username + 'now login');
+      setUsername('');
+      setPassword('');
     } catch (error) {
       console.error(error);
     }
