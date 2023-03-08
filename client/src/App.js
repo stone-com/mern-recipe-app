@@ -4,11 +4,13 @@ import Home from './pages/Home';
 import CreateRecipe from './pages/CreateRecipe';
 import SavedRecipes from './pages/SavedRecipes';
 import Auth from './pages/Auth';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className='App'>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/create-recipe' element={<CreateRecipe />} />
