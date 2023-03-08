@@ -1,24 +1,10 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import { User } from '../models/users.js';
+import { registerUser, loginUser } from '../controllers/userController.js';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+router.post('/register', registerUser);
 
-  if (user) {
-    res.json({ message: 'User already exists' });
-  }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({ username, password: hashedPassword });
-  await newUser.save();
-
-  res.json(newUser);
-});
-
-router.post('/login');
+router.post('/login', loginUser);
 
 export { router as userRouter };
