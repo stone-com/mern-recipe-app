@@ -20,6 +20,6 @@ router.put('/', saveRecipe);
 
 router.get('/savedRecipes/ids/:userID', getSavedRecipesIds);
 
-router.get('/savedRecipes', getSavedRecipes);
+router.get('/savedRecipes/:userID', getSavedRecipes);
 
 export { router as recipeRouter };

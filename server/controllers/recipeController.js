@@ -44,7 +44,7 @@ export const getSavedRecipesIds = asyncHandler(async (req, res) => {
 
 export const getSavedRecipes = asyncHandler(async (req, res) => {
   try {
-    const user = await User.findById(req.body.userID);
+    const user = await User.findById(req.params.userID);
     const savedRecipes = await Recipe.find({
       _id: { $in: user.savedRecipes },
     });
