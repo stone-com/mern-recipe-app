@@ -22,9 +22,10 @@ export const createRecipe = asyncHandler(async (req, res) => {
 });
 
 export const saveRecipe = asyncHandler(async (req, res) => {
+  const recipe = await Recipe.findById(req.body.recipeID);
+  const user = await User.findById(req.body.userID);
+  console.log(user);
   try {
-    const recipe = await Recipe.findById(req.body.recipeId);
-    const user = await User.findById(req.body.userId);
     user.savedRecipes.push(recipe);
     await user.save();
     res.json({ savedRecipes: user.savedRecipes });
