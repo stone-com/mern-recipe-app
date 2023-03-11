@@ -18,7 +18,7 @@ router.post('/', createRecipe);
 
 router.put('/', saveRecipe);
 
-router.get('savedRecipes/ids', getSavedRecipesIds);
+router.get('/savedRecipes/ids/:userID', getSavedRecipesIds);
 
 router.get('/savedRecipes', getSavedRecipes);
 

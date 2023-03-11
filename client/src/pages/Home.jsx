@@ -4,6 +4,7 @@ import { useGetUserID } from '../hooks/useGetUserID';
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -14,7 +15,19 @@ const Home = () => {
         console.error(error);
       }
     };
+
+    const fetchSavedRecipes = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+        );
+        setSavedRecipes(response.data.savedRecipes);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchRecipes();
+    fetchSavedRecipes();
   }, []);
 
   const userID = useGetUserID();
@@ -24,11 +37,13 @@ const Home = () => {
         recipeID,
         userID,
       });
-      console.log(response.data);
+      setSavedRecipes(response.data.savedRecipes);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
     <div>
@@ -38,7 +53,12 @@ const Home = () => {
           <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
-              <button onClick={() => saveRecipe(recipe._id)}>Save</button>
+              <button
+                onClick={() => saveRecipe(recipe._id)}
+                disabled={isRecipeSaved(recipe._id)}
+              >
+                {isRecipeSaved(recipe._id) ? 'Saved' : 'Save'}
+              </button>
             </div>
             <div className='instructions'>
               <p>{recipe.instructions}</p>
