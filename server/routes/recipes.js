@@ -5,6 +5,8 @@ import {
   getRecipes,
   createRecipe,
   saveRecipe,
+  getSavedRecipesIds,
+  getSavedRecipes,
 } from '../controllers/recipeController.js';
 
 const router = express.Router();
@@ -15,5 +17,9 @@ router.get('/', getRecipes);
 router.post('/', createRecipe);
 
 router.put('/', saveRecipe);
+
+router.get('savedRecipes/ids', getSavedRecipesIds);
+
+router.get('/savedRecipes', getSavedRecipes);
 
 export { router as recipeRouter };
