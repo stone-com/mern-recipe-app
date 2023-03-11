@@ -6,6 +6,7 @@ dotenv.config();
 import { connectDB } from './config/db.js';
 
 import { userRouter } from './routes/users.js';
+import { recipeRouter } from './routes/recipes.js';
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', userRouter);
+app.use('/recipes', recipeRouter);
 
 app.listen(3001, () => console.log('Server started'));
