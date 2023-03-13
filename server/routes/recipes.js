@@ -1,6 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import { Recipe } from '../models/Recipes.js';
+
 import {
   getRecipes,
   createRecipe,
@@ -8,15 +7,16 @@ import {
   getSavedRecipesIds,
   getSavedRecipes,
 } from '../controllers/recipeController.js';
+import { verifyToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
 
 // Routes for '/recipes/
 router.get('/', getRecipes);
 
-router.post('/', createRecipe);
+router.post('/', verifyToken, createRecipe);
 
-router.put('/', saveRecipe);
+router.put('/', verifyToken, saveRecipe);
 
 router.get('/savedRecipes/ids/:userID', getSavedRecipesIds);
 
