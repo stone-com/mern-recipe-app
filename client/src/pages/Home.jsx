@@ -29,13 +29,15 @@ const Home = () => {
       }
     };
     fetchRecipes();
-    fetchSavedRecipes();
+
+    if (cookies.access_token) {
+      fetchSavedRecipes();
+    }
   }, []);
 
   const userID = useGetUserID();
 
   const saveRecipe = async (recipeID) => {
-    console.log(cookies.access_token);
     try {
       const response = await axios.put(
         'http://localhost:3001/recipes',
